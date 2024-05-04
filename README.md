@@ -36,3 +36,5 @@ Password and Email for Founder account *You need to login to make CRUD operation
  Email    :Bill_gate@gmail.com
  Password :Bill1234
 
+Also import the "Employee management.postman_collection.json" file to the postman to get the api.
+
