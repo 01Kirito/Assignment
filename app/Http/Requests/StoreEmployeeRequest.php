@@ -32,7 +32,7 @@ class StoreEmployeeRequest extends FormRequest
             'salary' => ['numeric', 'required'],
             'date_of_employment' => ['required', 'date', 'before_or_equal:today', 'date_format:Y-m-d'],
             'email' => ['required','email','unique:employees'],
-            'password' => ['required', 'string', new Password(8)],
+            'password' => ['required', 'string', new Password(8),"confirmed"],
             'manager_id' => ['numeric', 'required'],
         ];
     }

@@ -81,10 +81,8 @@ class EmployeeController extends Controller
      */
     public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
-        dd("runed");
-        if(true){
-            dd("runed");
-            $employee::save([
+
+            $employee->update([
                 'full_name' => $request->input('full_name'),
                 'age' => $request->input('age'),
                 'salary' => $request->input('salary'),
@@ -93,10 +91,9 @@ class EmployeeController extends Controller
                 'password' => $request->input('password'),
                 'manager_id' => $request->input('manager_id'),
             ]);
+
             return response()->json(['message' => 'Employee updated successfully'], 201);
-        }else {
-            return response()->json(['message' => 'Invalid inputs.'], 422);
-        }
+
     }
 
     /**
@@ -104,6 +101,10 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //
+//      before deleting change all employees manager id that is equal to deleting employee id to level above.
+        Employee::where('manager_id', $employee->id)->update(['manager_id' => $employee->manager_id]);
+//      delete the employee
+        $employee->delete();
+        return response()->json(['message' => 'Employee deleted successfully'], 200);
     }
 }

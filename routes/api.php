@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\EmployeeLogin;
+use App\Http\Controllers\Querys;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -10,10 +12,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource("/employee",EmployeeController::class) ;
 
-Route::middleware(['auth'])->group(function () {
-    Route::resource("/employee", EmployeeController::class)->only(['edit', 'destroy']);
+
+
+Route::post("/employee/login",[EmployeeLogin::class,"login"]);
+
+
+Route::group(['middleware' => ['auth:sanctum']],function () {
+
+    Route::resource("/employee", EmployeeController::class);
+    Route::post('/employee/logout', [EmployeeLogin::class, 'logout']);
+    Route::get("/query/average",[Querys::class,"AverageDecade"]);
+    Route::get("/query/employee_founder/{employee}",[Querys::class,"EmployeeToFounder"]);
+
 });
 
-Route::post("/employee/login",[\App\Http\Controllers\EmployeeLogin::class,"login"]);
 
-Route::get("/query/average",[\App\Http\Controllers\Querys::class,"average_decade"]);
+
+

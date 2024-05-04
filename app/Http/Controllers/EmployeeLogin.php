@@ -38,4 +38,15 @@ class EmployeeLogin extends Controller
             'token_type' => 'Bearer',
         ]);
     }
+
+
+    public function logout()
+    {
+        $user = Auth::authenticate();
+        $user->currentAccessToken()->delete();
+        return response()->json([
+            'message' => 'logout successfully',200
+        ]);
+    }
+
 }

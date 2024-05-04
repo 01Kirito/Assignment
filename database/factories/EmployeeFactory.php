@@ -25,7 +25,7 @@ class EmployeeFactory extends Factory
 
         return [
             'full_name' => fake()->name(),
-            'age' => fake()->numberBetween(20,120),
+            'age' => fake()->numberBetween(20,124),
             'salary' => fake()->numberBetween(500,2000),
             'date_of_employment' => fake()->date("Y-m-d","now"),
             'email' => fake()->unique()->safeEmail(),
