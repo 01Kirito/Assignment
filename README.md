@@ -32,6 +32,7 @@ php artisan migrate
 php artisan db:seed --class=Founder    
 php artisan db:seed --class=DatabaseSeeder
 
+Password and Email for Founder account *You need to login to make CRUD operations.*
  Email    :Bill_gate@gmail.com
  Password :Bill1234
 
