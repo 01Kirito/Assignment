@@ -19,9 +19,9 @@ return new class extends Migration
             $table->date('date_of_employment')->nullable(false);
             $table->string('email')->unique()->nullable(false);
             $table->string('password')->nullable(false);
-            $table->unsignedBigInteger('employee_manager')->nullable(); // Nullable because the founder won't have a manager
+            $table->unsignedBigInteger('manager_id')->nullable(); // Nullable because the founder won't have a manager
             $table->timestamps();
-            $table->foreign('employee_manager')->references('id')->on('employees');
+            $table->foreign('manager_id')->references('id')->on('employees');
         });
     }
 

@@ -17,19 +17,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
 
-       Employee::factory()->create([
-             'full_name' => 'Bill Gates',
-             'age'=>80,
-             'salary'=>4000,
-             'date_of_employment' => 1960-05-15,
-             'email'=>'Bill_gate@gmail.com',
-             'password'=>static::$password ??= Hash::make('password'),
-             'employee_manager'=>1,
-         ]);
-
-
+        Employee::factory(5)->create();
+        Employee::factory(10)->create();
+        Employee::factory(20)->create();
+        Employee::factory(25)->create();
+        Employee::factory(40)->create();
 
 
     }

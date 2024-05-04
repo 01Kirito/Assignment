@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
 
 class EmployeeController extends Controller
 {
@@ -13,7 +15,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //
+        $employee_list =Employee::all();
+        return  response($employee_list);
     }
 
     /**
@@ -29,15 +32,40 @@ class EmployeeController extends Controller
      */
     public function store(StoreEmployeeRequest $request)
     {
-        //
+        // also we can make it better by returning just the invalid input
+        if($request->validated()){
+            Employee::create([
+                'full_name' => $request->input('full_name'),
+                'age' => $request->input('age'),
+                'salary' => $request->input('salary'),
+                'date_of_employment' => $request->input('date_of_employment'),
+                'email' =>$request->input('email'),
+                'password' => $request->input('password'),
+                'manager_id' => $request->input('manager_id'),
+            ]);
+            return response()->json(['message' => 'Employee created successfully'], 201);
+        }else {
+            return response()->json(['message' => 'Invalid inputs.'], 422);
+         }
     }
+
 
     /**
      * Display the specified resource.
      */
     public function show(Employee $employee)
     {
-        //
+        // we can also send employee employee manager by add this line below then add to the response
+        $manager = Employee::find($employee->manager_id);
+
+        // Check if manager exists
+        if ($manager) {
+            $data = [ 'employee' => $employee,  'manager name' => $manager->full_name,];
+        } else {
+            $data = ['employee' => $employee];
+        }
+        // Return the response as JSON
+        return response()->json(['data' => $data], 200);
     }
 
     /**
@@ -53,7 +81,22 @@ class EmployeeController extends Controller
      */
     public function update(UpdateEmployeeRequest $request, Employee $employee)
     {
-        //
+        dd("runed");
+        if(true){
+            dd("runed");
+            $employee::save([
+                'full_name' => $request->input('full_name'),
+                'age' => $request->input('age'),
+                'salary' => $request->input('salary'),
+                'date_of_employment' => $request->input('date_of_employment'),
+                'email' =>$request->input('email'),
+                'password' => $request->input('password'),
+                'manager_id' => $request->input('manager_id'),
+            ]);
+            return response()->json(['message' => 'Employee updated successfully'], 201);
+        }else {
+            return response()->json(['message' => 'Invalid inputs.'], 422);
+        }
     }
 
     /**

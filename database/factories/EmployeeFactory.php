@@ -26,11 +26,11 @@ class EmployeeFactory extends Factory
         return [
             'full_name' => fake()->name(),
             'age' => fake()->numberBetween(20,120),
-            'salary' => fake()->numberBetween(500,5000),
-            'date_of_employment' => fake()->date(),
+            'salary' => fake()->numberBetween(500,2000),
+            'date_of_employment' => fake()->date("Y-m-d","now"),
             'email' => fake()->unique()->safeEmail(),
-            'password' => static::$password ??= Hash::make('password'),
-            'employee_manager'=> $manager ? $manager->id : null,
+            'password' => fake()->password,
+            'manager_id'=> $manager ? $manager->id : null,
         ];
     }
 }

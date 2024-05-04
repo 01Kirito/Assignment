@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Laravel\Sanctum\HasApiTokens;
 
-class Employee extends Model
+class Employee Extends Authenticatable
 {
     use HasFactory;
+    use HasApiTokens;
+
+
 
 
     /**
@@ -22,7 +26,7 @@ class Employee extends Model
         'date_of_employment',
         'email',
         'password',
-        'employe_manager'
+        'manager_id'
     ];
 
     /**
@@ -32,10 +36,20 @@ class Employee extends Model
      */
     protected $hidden = [
         'password',
-        'remember_token',
-        'two_factor_recovery_codes',
-        'two_factor_secret',
     ];
+
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'password' => 'hashed',
+        ];
+    }
 
 
 }

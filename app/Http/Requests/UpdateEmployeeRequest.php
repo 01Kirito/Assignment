@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
 class UpdateEmployeeRequest extends FormRequest
 {
@@ -11,7 +12,8 @@ class UpdateEmployeeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+
+        return true;
     }
 
     /**
@@ -21,8 +23,15 @@ class UpdateEmployeeRequest extends FormRequest
      */
     public function rules(): array
     {
+
         return [
-            //
+                'full_name' => ['required', 'string', 'max:255'],
+                'age' => ['numeric', 'required'],
+                'salary' => ['numeric', 'required'],
+                'date_of_employment' => ['required', 'date', 'before_or_equal:today', 'date_format:Y-m-d'],
+                'email' => ['required','email','unique:employees'],
+                'password' => ['required', 'string', new Password(8)],
+                'manager_id' => ['numeric', 'required'],
         ];
     }
 }
