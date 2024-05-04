@@ -31,5 +31,7 @@ php artisan migrate
 
 php artisan db:seed --class=Founder    
 php artisan db:seed --class=DatabaseSeeder
- 
+
+ Email    :Bill_gate@gmail.com
+ Password :Bill1234
 
